@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.crom.miguiapp.R;
@@ -50,11 +51,13 @@ public class PlaceAdapter extends BaseAdapter {
 
         Place place = places.get(position);
 
-        TextView placeNameTextView = (TextView) view.findViewById(R.id.placeNameTextView);
-        TextView descriptionTextView = (TextView) view.findViewById(R.id.descriptionTextView);
+        //TextView placeNameTextView = (TextView) view.findViewById(R.id.placeNameTextView);
+        //TextView descriptionTextView = (TextView) view.findViewById(R.id.descriptionTextView);
+        //ImageView placeImageView = (ImageView) view.findViewById(R.id.imageView);
 
-        placeNameTextView.setText(place.getNombre());
-        descriptionTextView.setText(place.getDescripcion());
+        //placeNameTextView.setText(place.getNombre());
+        //descriptionTextView.setText(place.getDescripcion());
+        //placeImageView.setBackgroundResource(R.mipmap.cartagena);
 
         return view;
     }

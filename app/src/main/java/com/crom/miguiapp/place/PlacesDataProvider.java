@@ -12,7 +12,8 @@ public class PlacesDataProvider {
     public static List<Place> getPlaces(){
         List<Place> placeList = new ArrayList<>();
         for(int i = 0; i < 10; i++){
-            Place place = new Place("nombre de prueba #"+(i+1), "descripcion de prueba #"+(i+1));
+            Place place = new Place(i, "Nombre De Prueba #"+(i+1), "Esto es una descripcion de ejemplo. Por favor no se la tome en serio. Todo es un simulacro "+(i+1));
+            placeList.add(place);
         }
 
         return placeList;

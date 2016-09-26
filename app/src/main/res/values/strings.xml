@@ -22,4 +22,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!--PLACES ACTIVITY STRINGS-->
+    <string name="example_description">Esto es una descripcion de ejemplo. Por favor no se la tome en serio. Todo es un simulacro</string>
+
 </resources>
