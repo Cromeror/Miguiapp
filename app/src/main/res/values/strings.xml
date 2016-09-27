@@ -25,4 +25,25 @@
     <!--PLACES ACTIVITY STRINGS-->
     <string name="example_description">Esto es una descripcion de ejemplo. Por favor no se la tome en serio. Todo es un simulacro</string>
 
+    <!--WELCOME SLIDE STRINGS-->
+    <string name="title_activity_welcome">Home Screen</string>
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+
+    <string name="slide_1_title">Turistapp!</string>
+    <string name="slide_1_desc">Conoce lo mejor de Cartagena de Indias!</string>
+
+    <string name="slide_2_title">Turistapp</string>
+    <string name="slide_2_desc">Tu mejor compañia en Cartagena!</string>
+
+    <string name="slide_3_title">Turistapp</string>
+    <string name="slide_3_desc">Conoce lo mejor de Cartagena de Indias!</string>
+
+    <string name="slide_4_title">Turistapp</string>
+    <string name="slide_4_desc">Conoce lo mejor de Cartagena de Indias!</string>
+
+    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
+    <string name="play_again">Play Again</string>
+
 </resources>

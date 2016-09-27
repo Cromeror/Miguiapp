@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ListView;
 
 import com.crom.miguiapp.place.Place;
-import com.crom.miguiapp.place.PlaceAdapter;
 import com.crom.miguiapp.place.PlaceListRecyclerAdapter;
 import com.crom.miguiapp.place.PlacesDataProvider;
 
