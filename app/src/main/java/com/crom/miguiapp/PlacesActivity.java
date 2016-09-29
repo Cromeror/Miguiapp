@@ -1,9 +1,11 @@
 package com.crom.miguiapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ListView;
 
 import com.crom.miguiapp.place.Place;
@@ -28,5 +30,14 @@ public class PlacesActivity extends AppCompatActivity {
 
         PlaceListRecyclerAdapter adapter = new PlaceListRecyclerAdapter(placesList);
         placesListView.setAdapter(adapter);
+    }
+
+    /**
+     * Go
+     * @param view
+     */
+    public void goMapAction(View view){
+        Intent intent = new Intent(PlacesActivity.this, MapsActivity.class);
+        startActivity(intent);
     }
 }
