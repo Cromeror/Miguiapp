@@ -51,13 +51,13 @@ public class PlaceAdapter extends BaseAdapter {
 
         Place place = places.get(position);
 
-        //TextView placeNameTextView = (TextView) view.findViewById(R.id.placeNameTextView);
-        //TextView descriptionTextView = (TextView) view.findViewById(R.id.descriptionTextView);
-        //ImageView placeImageView = (ImageView) view.findViewById(R.id.imageView);
+        TextView placeNameTextView = (TextView) view.findViewById(R.id.placeName);
+        TextView descriptionTextView = (TextView) view.findViewById(R.id.placeDescription);
+        ImageView placeImageView = (ImageView) view.findViewById(R.id.imageView);
 
-        //placeNameTextView.setText(place.getNombre());
-        //descriptionTextView.setText(place.getDescripcion());
-        //placeImageView.setBackgroundResource(R.mipmap.cartagena);
+        placeNameTextView.setText(place.getNombre());
+        descriptionTextView.setText(place.getDescripcion());
+        placeImageView.setBackgroundResource(this.places.get(position).getImageResourse());
 
         return view;
     }

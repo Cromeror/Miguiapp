@@ -35,6 +35,10 @@ public class PlacesActivity extends AppCompatActivity {
 
         PlaceListRecyclerAdapter adapter = new PlaceListRecyclerAdapter(placesList);
         placesListView.setAdapter(adapter);
+
+        //#########################################################################################
+        //SETTING UP MEADIAPLAYER SERVICES
+
         MediaPlayerService myService;
         //lol
         ServiceConnection myConnection = new ServiceConnection() {

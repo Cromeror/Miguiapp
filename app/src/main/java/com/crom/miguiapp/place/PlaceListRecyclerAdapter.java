@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
 import com.crom.miguiapp.R;
 
 import java.util.List;
@@ -35,7 +36,7 @@ public class PlaceListRecyclerAdapter extends RecyclerView.Adapter<PlaceListRecy
 
     @Override
     public void onBindViewHolder(PlaceViewHolder holder, int position) {
-        holder.placeImage.setImageResource(R.mipmap.cartagena);
+        holder.placeImage.setImageResource(this.places.get(position).getImageResourse());
         holder.placeName.setText(this.places.get(position).getNombre());
         holder.placeDescription.setText(this.places.get(position).getDescripcion());
     }

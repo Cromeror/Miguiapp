@@ -6,14 +6,19 @@ package com.crom.miguiapp.place;
 
 public class Place {
     private int id;
-    private String imageResourse;
+    private int imageResourse;
     private String nombre;
     private String descripcion;
 
-    public Place(int id, String nombre, String descripcion){
+    public Place(int id, String nombre, String descripcion, int imageResourse){
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
+        this.imageResourse = imageResourse;
+    }
+
+    public int getImageResourse() {
+        return imageResourse;
     }
 
     public int getId() {

@@ -26,8 +26,8 @@
                     android:maxHeight="250dp"
                     android:id="@+id/placeImageView"
                     android:contentDescription="place image"
-                    android:scaleType="matrix"
-                    android:src="@mipmap/cartagena" />
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/torre_del_reloj" />
 
                 <TextView
                     android:text="Cartagena de Indias"
