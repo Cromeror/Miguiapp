@@ -1,10 +1,15 @@
 package com.crom.miguiapp;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -30,6 +35,24 @@ public class PlacesActivity extends AppCompatActivity {
 
         PlaceListRecyclerAdapter adapter = new PlaceListRecyclerAdapter(placesList);
         placesListView.setAdapter(adapter);
+        MediaPlayerService myService;
+        //lol
+        ServiceConnection myConnection = new ServiceConnection() {
+            public void onServiceConnected(ComponentName className, IBinder binder) {
+                Log.d("ServiceConnection","connected");
+                //myService = binder;
+            }
+            //binder comes from server to communicate with method's of
+
+            public void onServiceDisconnected(ComponentName className) {
+                Log.d("ServiceConnection","disconnected");
+                //myService = null;
+            }
+        };
+
+        Intent intent = new Intent(PlacesActivity.this, MediaPlayerService.class);
+       // bindService(intent, myConnection, Context.BIND_AUTO_CREATE );
+        startService(intent);
     }
 
     /**
