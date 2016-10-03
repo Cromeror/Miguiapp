@@ -66,10 +66,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="2dp"
                     android:layout_marginStart="2dp"
-                    android:id="@+id/verMasBtn"
+                    android:id="@+id/play_btn"
                     android:backgroundTint="@color/black"
                     android:textColor="@color/black_overlay"
-                    android:onClick="listenAction"
+                    android:onClick="playAction"
                     style="@style/Widget.AppCompat.Button.Borderless" />
 
                 <Button

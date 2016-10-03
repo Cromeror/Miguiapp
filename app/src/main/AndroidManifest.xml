@@ -33,7 +33,7 @@
         </activity>
 
         <service android:name=".GeofenceTransitionsIntentService" />
-        <service android:name=".MediaPlayerService"/>
+        <service android:name=".service.MediaPlayerService"/>
 
     </application>
 
