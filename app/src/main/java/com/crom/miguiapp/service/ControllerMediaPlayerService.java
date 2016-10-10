@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 
-import com.crom.miguiapp.PlacesActivity;
 import com.crom.miguiapp.service.MediaPlayerService.MediaPlayerBinder;
 
 /**
@@ -18,13 +17,10 @@ import com.crom.miguiapp.service.MediaPlayerService.MediaPlayerBinder;
 public class ControllerMediaPlayerService {
 
     private static ServiceConnection serviceConnection;
-
     private static ControllerMediaPlayerService instance;
-
     private MediaPlayerBinder mediaPlayerBinder;
-
     private MediaPlayerService mediaPlayerService;
-
+    private Activity activity;
     private boolean connected = false;
 
     private ControllerMediaPlayerService(){
@@ -43,31 +39,26 @@ public class ControllerMediaPlayerService {
         };
     }
 
-    public static ControllerMediaPlayerService getInstance(Activity activity) {
-
+    public static ControllerMediaPlayerService getInstance() {
         if(instance == null)
             instance = new ControllerMediaPlayerService();
 
-        Intent intent = new Intent(activity, MediaPlayerService.class);
-
-        activity.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
 
         return instance;
     }
 
     public void playMediaPlayer(){
-
         mediaPlayerService.audioPlay();
-
     }
 
     public void pauseMediaPlayer(){
-
         mediaPlayerService.audioPause();
-
     }
 
-    public void initService(PlacesActivity activity){
+    public void initService(Activity activity){
+        this.activity = activity;
+        Intent intent = new Intent(activity, MediaPlayerService.class);
+        activity.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
     public boolean isConnected() {
