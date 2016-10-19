@@ -5,15 +5,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.crom.miguiapp.place.PlacesDataProvider;
+import com.crom.miguiapp.pojo.Place;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
@@ -28,15 +32,14 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
-import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, ConnectionCallbacks, OnConnectionFailedListener
         , ResultCallback<Status> {
+    public final static String POSITION_LAT = MapsActivity.class.getPackage() + ".position.latitude";
+    public final static String POSITION_LON = MapsActivity.class.getPackage() + ".position.longitude";
 
     protected static final String TAG = "MainActivity";
 
@@ -69,6 +72,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * Represents a geographical location.
      */
     protected Location mLastLocation;
+    private float currentZoom = 18.0f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +84,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
         buildGoogleApiClient();
         createLocationRequest();
-
 
         // Empty list for storing geofences.
         mGeofenceList = new ArrayList<Geofence>();
@@ -106,10 +109,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         mMap.setMyLocationEnabled(true);
+        Intent intent = getIntent();
+        if (intent.getDoubleExtra(POSITION_LAT, 0d)
+                != 0f && intent.getDoubleExtra(POSITION_LON, 0) != 0d)
+            ubicationCamera(new LatLng(intent.getDoubleExtra(POSITION_LAT, 0), intent.getDoubleExtra(POSITION_LON, 0)));
+        else
+            getLocation();
         // Get the geofences used. Geofence data is hard coded in this sample.
         populateGeofenceList();
     }
@@ -134,9 +148,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // applications that do not require a fine-grained location and that do not need location
         // updates. Gets the best and most recent location currently available, which may be null
         // in rare cases when a location is not available.
-        getLocation();
         addGeofences();
     }
+
     @Override
     public void onConnectionSuspended(int i) {
         // The connection to Google Play services was lost for some reason. We call connect() to
@@ -161,22 +175,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         builder.build());
     }
 
-    private void getLocation(){
+    private void getLocation() {
         //checkSelfPermission
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(
+                this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (mLastLocation != null) {
             LatLng position = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-            //mMap.addMarker(new MarkerOptions().position(position).title("Este eres tú"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(position));
-            mMap.animateCamera( CameraUpdateFactory.zoomTo( 16.0f ) );
+            ubicationCamera(position);
+
+            Log.i("###########", position.toString());
         } else {
-            Toast.makeText(this, "no_location_detected", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "no location detected", Toast.LENGTH_LONG).show();
         }
     }
 
+    private void ubicationCamera(LatLng position) {
+        Log.i("###########", position.toString());
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(position));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(currentZoom));
+    }
 
     /**
      * Builds a GoogleApiClient. Uses the {@code #addApi} method to request the LocationServices API.
@@ -189,7 +213,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .build();
     }
 
-
     @Override
     public void onConnectionFailed(ConnectionResult result) {
         // Refer to the javadoc for ConnectionResult to see what error codes might be returned in
@@ -197,22 +220,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
     }
 
-
     /**
      * Builds and returns a GeofencingRequest. Specifies the list of geofences to be monitored.
      * Also specifies how the geofence notifications are initially triggered.
      */
     private GeofencingRequest getGeofencingRequest() {
         GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
-
         // The INITIAL_TRIGGER_ENTER flag indicates that geofencing service should trigger a
         // GEOFENCE_TRANSITION_ENTER notification when the geofence is added and if the device
         // is already inside that geofence.
         builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER);
-
         // Add the geofences to be monitored by geofencing service.
         builder.addGeofences(mGeofenceList);
-
         // Return a GeofencingRequest.
         return builder.build();
     }
@@ -272,7 +291,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /**
      * Runs when the result of calling addGeofences() and removeGeofences() becomes available.
      * Either method can complete successfully or with an error.
-     *
+     * <p>
      * Since this activity implements the {@link ResultCallback} interface, we are required to
      * define this method.
      *
@@ -293,7 +312,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             Toast.makeText(
                     this,
-                    (mGeofencesAdded ?" R.string.geofences_added" :
+                    (mGeofencesAdded ? " R.string.geofences_added" :
                             "R.string.geofences_removed"),
                     Toast.LENGTH_SHORT
             ).show();
@@ -328,15 +347,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * the user's location.
      */
     public void populateGeofenceList() {
-        for (Map.Entry<String, LatLng> entry : Constants.BAY_AREA_LANDMARKS.entrySet()) {
+        for (Place place : PlacesDataProvider.getPlaces()) {
             mGeofenceList.add(new Geofence.Builder()
                     // Set the request ID of the geofence. This is a string to identify this
                     // geofence.
-                    .setRequestId(entry.getKey())
+                    .setRequestId(place.getId() + "")
                     // Set the circular region of this geofence.
                     .setCircularRegion(
-                            entry.getValue().latitude,
-                            entry.getValue().longitude,
+                            place.getLandmark().getLatLng().latitude,
+                            place.getLandmark().getLatLng().longitude,
                             Constants.GEOFENCE_RADIUS_IN_METERS
                     )
 
@@ -351,11 +370,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     // Create the geofence.
                     .build());
-            loadSites(entry);
+            loadSites(place);
         }
     }
-    private void loadSites(Map.Entry<String, LatLng> entry){
-        LatLng position = new LatLng(entry.getValue().latitude,entry.getValue().longitude);
-        mMap.addMarker(new MarkerOptions().position(position).title(entry.getKey()));
+
+    private void loadSites(Place entry) {
+        LatLng position = new LatLng(entry.getLandmark().getLatLng().latitude,
+                entry.getLandmark().getLatLng().longitude);
+        mMap.addMarker(new MarkerOptions().position(position).title(entry.getNombre()));
     }
 }
