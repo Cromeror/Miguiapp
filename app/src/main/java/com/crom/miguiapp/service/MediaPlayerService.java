@@ -21,7 +21,7 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnPrepare
     public void onCreate() {
         super.onCreate();
 
-        mediaPlayer = MediaPlayer.create(this, R.raw.aerosmith_crazy);
+        mediaPlayer = MediaPlayer.create(this, R.raw.audio_tower_clock);
         mediaPlayer.setOnPreparedListener(this);
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
     }

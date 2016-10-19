@@ -6,28 +6,50 @@ package com.crom.miguiapp.pojo;
 
 public class Place {
     private int id;
-    private int imageResourse;
+    private Integer imageResourse;
     private String nombre;
     private String descripcion;
     private Landmark landmark;
+    private Integer audioResource;
 
 
-    public Place(int id, String nombre, String descripcion, int imageResourse){
+    public Place(int id, String name, String description, int imageResourse) {
         this.id = id;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
+        this.nombre = name;
+        this.descripcion = description;
         this.imageResourse = imageResourse;
     }
 
-    public Place(int id, String nombre, String descripcion, int imageResourse, Landmark landmark) {
+    public Place(int id, String name, String description, int imageResourse, Landmark landmark) {
         this.id = id;
         this.imageResourse = imageResourse;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
+        this.nombre = name;
+        this.descripcion = description;
         this.landmark = landmark;
     }
 
-    public int getImageResourse() {
+    public Place(int id, String name, String description, Integer imageResource, Landmark landmark, Integer audioResource) {
+        this.id = id;
+        this.imageResourse = imageResource;
+        this.nombre = name;
+        this.descripcion = description;
+        this.landmark = landmark;
+        this.audioResource = audioResource;
+    }
+
+    public void setImageResourse(Integer imageResourse) {
+        this.imageResourse = imageResourse;
+    }
+
+    public Integer getAudioResource() {
+        return audioResource;
+    }
+
+    public void setAudioResource(Integer audioResource) {
+        this.audioResource = audioResource;
+    }
+
+    public Integer getImageResourse() {
         return imageResourse;
     }
 

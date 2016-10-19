@@ -2,6 +2,7 @@ package com.crom.miguiapp.place;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -96,8 +97,12 @@ public class PlaceListRecyclerAdapter extends RecyclerView.Adapter<PlaceListRecy
             playBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ControllerMediaPlayerService.getInstance();
-                    ControllerMediaPlayerService.getInstance().initService(context);
+                    if (place.getAudioResource() != null) {
+                        ControllerMediaPlayerService.getInstance();
+                        ControllerMediaPlayerService.getInstance().initService(context, place.getAudioResource());
+                    }else {
+                        Snackbar.make(view, "Audio no disponible", Snackbar.LENGTH_SHORT).show();
+                    }
                 }
             });
         }

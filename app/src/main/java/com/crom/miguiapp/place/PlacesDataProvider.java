@@ -22,7 +22,7 @@ public class PlacesDataProvider {
             new Place(2,"Torre del Reloj","El reloj además de ser el símbolo representativo " +
                     "de Cartagena es la entrada a la ciudad. Esta torre fue instaurada en el" +
                     " siglo XIX...",R.mipmap.torre_del_reloj,
-                    new Landmark("REF#02", new LatLng(10.423037, -75.549180))),
+                    new Landmark("REF#02", new LatLng(10.423037, -75.549180)), R.raw.audio_tower_clock),
             new Place(3,"Palacio de la Inquisicion","Este edificio es considerado una de las " +
                     "casas típicas de la arquitectura civil de la Cartagena de Indias del " +
                     "siglo XVIII.",R.mipmap.palacio_de_la_inquisicion,

@@ -1,6 +1,5 @@
 package com.crom.miguiapp.service;
 
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -55,7 +54,7 @@ public class ControllerMediaPlayerService {
         mediaPlayerService.audioPause();
     }
 
-    public void initService(Context context){
+    public void initService(Context context, Integer audioResource){
         this.context = context;
         Intent intent = new Intent(context, MediaPlayerService.class);
         context.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
