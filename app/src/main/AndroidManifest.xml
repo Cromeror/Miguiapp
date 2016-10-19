@@ -18,7 +18,6 @@
         <activity android:name=".PlacesActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -27,7 +26,8 @@
             android:label="@string/title_activity_maps" />
         <activity
             android:name=".intro.WelcomeActivity"
-            android:theme="@style/WelcomeTheme"/>
+            android:theme="@style/WelcomeTheme" />
+        <activity android:name=".PlaceDetailActivity" />
 
         <service android:name=".GeofenceTransitionsIntentService" />
         <service android:name=".service.MediaPlayerService" />

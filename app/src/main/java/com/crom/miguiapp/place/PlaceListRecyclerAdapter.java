@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.crom.miguiapp.MapsActivity;
+import com.crom.miguiapp.PlaceDetailActivity;
 import com.crom.miguiapp.PlacesActivity;
 import com.crom.miguiapp.R;
 import com.crom.miguiapp.pojo.Place;
@@ -80,8 +81,10 @@ public class PlaceListRecyclerAdapter extends RecyclerView.Adapter<PlaceListRecy
                 @Override
                 public void onClick(View view) {
                     if (PlaceViewHolder.this.place != null) {
-                        //Intent intent = new Intent(context, MapsActivity.class);
-                        Log.i("######", "Tengo que mostrar el mapa del id: " + PlaceViewHolder.this.place.getId());
+                        Intent intent = new Intent(context, PlaceDetailActivity.class);
+                        //intent.putExtra(PlaceDetailActivity.ARG_INDEX, place.getId());
+                        context.startActivity(intent);
+                        //Log.i("######", "Tengo que mostrar el mapa del id: " + PlaceViewHolder.this.place.getId());
                     }
                 }
             });
@@ -100,7 +103,7 @@ public class PlaceListRecyclerAdapter extends RecyclerView.Adapter<PlaceListRecy
                     if (place.getAudioResource() != null) {
                         ControllerMediaPlayerService.getInstance();
                         ControllerMediaPlayerService.getInstance().initService(context, place.getAudioResource());
-                    }else {
+                    } else {
                         Snackbar.make(view, "Audio no disponible", Snackbar.LENGTH_SHORT).show();
                     }
                 }
