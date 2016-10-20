@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mi guiapp</string>
+    <string name="app_name">TuristApp</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

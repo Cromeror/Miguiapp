@@ -3,6 +3,7 @@ package com.crom.miguiapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,16 +20,20 @@ public class PlaceDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_detail);
-        /*if (getIntent().getIntExtra(ARG_INDEX, 0) > 0) {
+
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        if (getIntent().getIntExtra(ARG_INDEX, 0) > 0) {
             loadDetail(getIntent().getIntExtra(ARG_INDEX, 0));
-        }*/
+        }
     }
 
     private void loadDetail(int intExtra) {
         this.place = PlacesDataProvider.getPlaces().get(intExtra);
         TextView title = (TextView) findViewById(R.id.title_detail);
         TextView description = (TextView) findViewById(R.id.description_detail);
-        ImageView imagen = (ImageView) findViewById(R.id.image_detail);
+        ImageView imagen = (ImageView) findViewById(R.id.image_toolbars);
 
         title.setText(place.getNombre());
         description.setText(place.getDescripcion());

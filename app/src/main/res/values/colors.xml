@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#F5A42C</color>
-    <color name="colorPrimaryDark">#F5A42C</color>
+    <color name="colorPrimaryDark">#e69a29</color>
     <color name="colorAccent">#B60620</color>
-    <color name="black_overlay">#0EAD96</color>
+    <color name="black_overlay">#DA0EAD96</color>
     <color name="black">#00000000</color>
 
     <!-- Screens background color-->

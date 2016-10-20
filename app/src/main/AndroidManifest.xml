@@ -15,18 +15,20 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".PlacesActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".PlacesActivity"></activity>
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity
             android:name=".intro.WelcomeActivity"
-            android:theme="@style/WelcomeTheme" />
+            android:theme="@style/WelcomeTheme">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".PlaceDetailActivity" />
 
         <service android:name=".GeofenceTransitionsIntentService" />

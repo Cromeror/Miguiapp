@@ -35,28 +35,4 @@ public class PlacesActivity extends AppCompatActivity {
 
     }
 
-
-
-    public void notificationMediaPlayer(String title, String text){
-
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.ic_play_dark)
-                .setContentTitle(title)
-                .setContentText(text);
-
-        Intent resultIntent = new Intent(this, PlacesActivity.class);
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-        stackBuilder.addParentStack(PlacesActivity.class);
-        stackBuilder.addNextIntent(resultIntent);
-        PendingIntent resultPendingIntent =
-                stackBuilder.getPendingIntent(
-                        0,
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                );
-
-        mBuilder.setContentIntent(resultPendingIntent);
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(0, mBuilder.build());
-    }
 }

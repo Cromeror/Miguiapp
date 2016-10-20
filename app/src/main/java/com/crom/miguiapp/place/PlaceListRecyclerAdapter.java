@@ -1,8 +1,12 @@
 package com.crom.miguiapp.place;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -77,7 +81,7 @@ public class PlaceListRecyclerAdapter extends RecyclerView.Adapter<PlaceListRecy
 
         public void setPlace(final Place place) {
             this.place = place;
-            placeImage.setOnClickListener(new View.OnClickListener() {
+            /*placeImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (PlaceViewHolder.this.place != null) {
@@ -87,7 +91,7 @@ public class PlaceListRecyclerAdapter extends RecyclerView.Adapter<PlaceListRecy
                         //Log.i("######", "Tengo que mostrar el mapa del id: " + PlaceViewHolder.this.place.getId());
                     }
                 }
-            });
+            });*/
             mapBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -108,6 +112,30 @@ public class PlaceListRecyclerAdapter extends RecyclerView.Adapter<PlaceListRecy
                     }
                 }
             });
+        }
+
+
+        public void notificationMediaPlayer(String title, String text){
+
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
+                    .setSmallIcon(R.drawable.ic_play_dark)
+                    .setContentTitle(title)
+                    .setContentText(text);
+
+            Intent resultIntent = new Intent(context, PlacesActivity.class);
+            TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+            stackBuilder.addParentStack(PlacesActivity.class);
+            stackBuilder.addNextIntent(resultIntent);
+            PendingIntent resultPendingIntent =
+                    stackBuilder.getPendingIntent(
+                            0,
+                            PendingIntent.FLAG_UPDATE_CURRENT
+                    );
+
+            mBuilder.setContentIntent(resultPendingIntent);
+            NotificationManager mNotificationManager =
+                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            mNotificationManager.notify(0, mBuilder.build());
         }
     }
 }

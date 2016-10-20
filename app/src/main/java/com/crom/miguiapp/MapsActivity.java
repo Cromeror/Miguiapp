@@ -190,7 +190,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             LatLng position = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
             ubicationCamera(position);
 
-            Log.i("###########", position.toString());
         } else {
             Toast.makeText(this, "no location detected", Toast.LENGTH_LONG).show();
         }
@@ -310,12 +309,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // geofences enables the Add Geofences button.
             //setButtonsEnabledState();
 
-            Toast.makeText(
-                    this,
-                    (mGeofencesAdded ? " R.string.geofences_added" :
-                            "R.string.geofences_removed"),
-                    Toast.LENGTH_SHORT
-            ).show();
+//            Toast.makeText(
+//                    this,
+//                    (mGeofencesAdded ? " R.string.geofences_added" :
+//                            "R.string.geofences_removed"),
+//                    Toast.LENGTH_SHORT
+//            ).show();
         } else {
             // Get the status code for the error and log it using a user-friendly message.
             String errorMessage = GeofenceErrorMessages.getErrorString(this,
